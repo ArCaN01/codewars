@@ -1,13 +1,27 @@
 def recoverSecret(triplets):
-    r = list(set([i for l in triplets for i in l]))
-    for l in triplets:
-        fix(r, l[1], l[2])
-        fix(r, l[0], l[1])
-    return ''.join(r)
+    r = []
+    for i in range(len(triplets)):
+        for l in range((len(triplets[i]))):
+            r.append(triplets[i][l])
 
 
-def fix(l, a, b):
-    """let l.index(a) < l.index(b)"""
-    if l.index(a) > l.index(b):
-        l.remove(a)
-        l.insert(l.index(b), a)
+    r = set(r)
+    r = list(r)
+
+
+    while True:
+        count = 0
+
+
+        for i in range(len(triplets)):
+            for l in  range(len(triplets[i]) - 1):
+                first = triplets[i][l]
+                second = triplets[i][l + 1]
+                index_f = r.index(first)
+                index_s = r.index(second)
+                if index_f > index_s:
+                    r[index_f], r[index_s] = r[index_s], r[index_f]
+                    count =+ 1
+
+        if count == 0:
+            return ''.join(r)
