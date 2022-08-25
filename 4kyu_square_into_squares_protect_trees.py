@@ -1,14 +1,11 @@
 def decompose(n):
-    remain = 0
-    result = [n]
-    while result:
-        current = result.pop()
-        remain += current ** 2
-        for i in range(current - 1, 0, -1):
-            if remain - (i ** 2) >= 0:
-                remain -= i ** 2
-                result.append(i)
-                if remain == 0:
-                    result.sort()
-                    return result
-    return None
+    def _recurse(s, i):
+        if s < 0:
+            return None
+        if s == 0:
+            return []
+        for j in range(i-1, 0, -1):
+            sub = _recurse(s - j**2, j)
+            if sub != None:
+                return sub + [j]
+    return _recurse(n**2, n)
